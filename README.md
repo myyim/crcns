@@ -17,6 +17,7 @@ shuffledfields.m: shuffles grid bumps in perfect simulated grid activity pattern
 ```
 gs = shuffledfields(g2d)
 ```
+![](/codes/g2d.png)
 
 shuffledbins.m: shuffles bins randomly
 ```
