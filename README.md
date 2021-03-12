@@ -17,14 +17,13 @@ shuffledfields.m: shuffles grid bumps in perfect simulated grid activity pattern
 ```
 gs = shuffledfields(g2d)
 ```
-![](https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png =250x250)
-![](/figures_readme/g2d.png)
-<img src="/figures_readme/g2d.png" alt="" style="height: 10px; width:10px;"/>
+<img src="/figures_readme/g2d.png" width="300"> --> <img src="/figures_readme/g2d.png" width="300">
 
 shuffledbins.m: shuffles bins randomly
 ```
 gs = shuffledbins(gdata)
 ```
+<img src="/figures_readme/g2d.png" width="300"> --> <img src="/figures_readme/g2d.png" width="300">
 
 ### Cell IDs in Sargolini data (sargolini_cellID)
 CellIDarena.mat: file name, tetrode ID and cell ID of 71 cells recorded in arenas
