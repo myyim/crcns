@@ -1,15 +1,21 @@
-function gs = shuffledfields(g2d,seed)
-% gs = shuffledfields(g2d,seed) shuffles grid bumps in g2d assuming that
+function gs = shuffledfields(g2d,thre,seed)
+% gs = shuffledfields(g2d,thre,seed) shuffles grid bumps in g2d assuming that
 % all bumps are identical and circular, and the partial fields at the edge
-% do not matter. Optional seed returns different realizations.
+% do not matter. 
+% Optional thre below which is considered zero for defining islands.
+% Optional seed returns different realizations.
 % Image processing toolbox is required
 if nargin == 1
+    thre = 0.2;
+end
+if nargin <= 2
     seed = randi(100);
 end
+g2d(g2d<=thre) = 0;
 rng(seed); 
 [mp,n] = bwlabel(g2d);  % find the islands and the number
 if n < 2
-    error('Multiple isolated circular bumps are needed. Consider thresholding your data.');
+    error('Multiple isolated circular bumps separated by 0s are needed. Consider thresholding your data.');
 end
 mp(mp~=mode(mp(find(mp~=0)),'all')) = 0;    % pick the largest island and we want an intact one
 kern = g2d.*(mp~=0);    % a bump
