@@ -27,5 +27,6 @@ gs = shuffledbins(gdata)
 
 ### Cell IDs in Sargolini data (sargolini_cellID)
 CellIDarena.mat: file name, tetrode ID and cell ID of 71 cells recorded in arenas
+
 CellIDtrack.mat: file name, tetrode ID and cell ID of 71 cells recorded on tracks
 
