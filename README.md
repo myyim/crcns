@@ -10,6 +10,7 @@ psi = 0.31; % grid orientation
 c = [0,0];  % center related to phase
 [xm,ym] = meshgrid(-r:r,-r:r);
 g2d = gridcell(xm,ym,fpk,lam,psi,c);
+figure; hold on; axis image; colorbar; colormap(jet(256));imagesc(g2d); % plot
 ```
 
 ### Extracting grid activity in open fields in Sargolini data (codes)
