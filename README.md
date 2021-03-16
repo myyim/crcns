@@ -47,8 +47,16 @@ figure; imagesc_env(x0,x0,ratemap); axis image; colorbar; colormap(jet(256)); ca
 ### Extracting circular track activity from grid activity in Sargolini data (codes)
 Call getdata_sargolini.m. Plot trajectory and spikes. Generate ratemap.
 ```
+% define the circular extraction
 tractw_extract = 15;  % track width
 rad_extract = 60;   % radius
+
+% plot region of extraction
+figure; hold on; axis image; plot(trackpos(:,1),trackpos(:,2),'k'); plot(trackf(:,1),trackf(:,2),'r.');
+plot((rad_extract-15/2)*cos(t),(rad_extract-15/2)*sin(t),'g');  % inner circle
+plot((rad_extract+15/2)*cos(t),(rad_extract+15/2)*sin(t),'g');  % outer circle
+
+& load extracted data
 [trackpos,trackf,ts] = getdata_sargolini('MEC201410Al1t0.mat',0,1,4,tractw_extract,rad_extract); % data 2d
 % file name, tetrode ID, cell ID, 4=extract circular track from given data
 
@@ -69,7 +77,7 @@ figure; hold on; imagesc_env(x0,x0,ratemap); axis image; colorbar; colormap(jet(
 plot((rad_extract-15/2)*cos(t),(rad_extract-15/2)*sin(t),'g');  % inner circle
 plot((rad_extract+15/2)*cos(t),(rad_extract+15/2)*sin(t),'g');  % outer circle
 ```
-<img src="/figures_readme/traj_extract.png" width="300"> <img src="/figures_readme/ratemap_extract.png" width="300">
+<img src="/figures_readme/traj_circle.png" width="300"> <img src="/figures_readme/traj_extract.png" width="300"> <img src="/figures_readme/ratemap_extract.png" width="300">
 
 ### Control (codes_control)
 shuffledfields.m: shuffles grid bumps in perfect simulated grid activity pattern assuming identical and circular bumps
