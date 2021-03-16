@@ -16,14 +16,14 @@ figure; hold on; axis image; colorbar; colormap(jet(256));imagesc(g2d); % plot
 CellIDarena.mat: file name, tetrode ID and cell ID of 71 cells recorded in arenas  
 CellIDtrack.mat: file name, tetrode ID and cell ID of 71 cells recorded on tracks
 
-Load the data
+Load the data to workspace
 ```
 datapath = '../Jacob_Sargolini_Data/light_large/data/'; % enter your data path here!
 addpath(datapath);
 load(['CellIDtrack.mat']);
 ```
 
-### Extracting grid activity in Sargolini data (codes)
+### Plotting grid activity in Sargolini data (codes)
 Call getdata_sargolini.m. Plot trajectory and spikes. Generate ratemap.
 ```
 [trackpos,trackf,ts] = getdata_sargolini('MEC201410Al1t0.mat',0,1,1); % data 2d
@@ -39,6 +39,9 @@ figure; imagesc_env(x0,x0,ratemap); axis image; colorbar; colormap(jet(256)); ca
 ```
 <img src="/figures_readme/traj.png" width="300"> <img src="/figures_readme/ratemap.png" width="300">
 
+### Extracting circular track activity from grid activity in Sargolini data (codes)
+
+
 ### Control (codes_control)
 shuffledfields.m: shuffles grid bumps in perfect simulated grid activity pattern assuming identical and circular bumps
 (Note that shuffledfields(g2d) thresholds the data g2d by default before shuffling.)
@@ -53,9 +56,9 @@ gsb = shuffledbins(g2d)
 ```
 <img src="/figures_readme/g2d.png" width="300"> --> <img src="/figures_readme/gsb.png" width="300">
 
-<>(shuffledbumps.m: shuffles bumps randomly
+shuffledbumps.m: shuffles bumps randomly
 ```
-gsbp = shuffledbins(gdata)
-```)
+gsbp = shuffledbumps(gdata)
+```
 
 
