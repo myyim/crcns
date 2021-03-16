@@ -12,6 +12,7 @@ c = [0,0];  % center related to phase
 g2d = gridcell(xm,ym,fpk,lam,psi,c);
 figure; hold on; axis image; colorbar; colormap(jet(256));imagesc(g2d); % plot
 ```
+<img src="/figures_readme/g2d.png" width="300">
 
 ### Cell IDs in Sargolini data (sargolini_cellID)
 CellIDarena.mat: file name, tetrode ID and cell ID of 71 cells recorded in arenas  
