@@ -50,7 +50,7 @@ Call getdata_sargolini.m. Plot trajectory and spikes. Generate ratemap.
 tractw_extract = 15;  % track width
 rad_extract = 60;   % radius
 [trackpos,trackf,ts] = getdata_sargolini('MEC201410Al1t0.mat',0,1,4,tractw_extract,rad_extract); % data 2d
-% file name, tetrode ID, cell ID, 4=extract circular track from given data, 15=track width, 60=radius of extraction
+% file name, tetrode ID, cell ID, 4=extract circular track from given data
 
 % plot trajectory and spikes
 figure; hold on; axis image; plot(trackpos(:,1),trackpos(:,2),'k'); plot(trackf(:,1),trackf(:,2),'r.');
