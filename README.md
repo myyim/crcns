@@ -53,7 +53,7 @@ gsb = shuffledbins(g2d)
 ```
 <img src="/figures_readme/g2d.png" width="300"> --> <img src="/figures_readme/gsb.png" width="300">
 
-#(shuffledbumps.m: shuffles bumps randomly
+<>(shuffledbumps.m: shuffles bumps randomly
 ```
 gsbp = shuffledbins(gdata)
 ```)
