@@ -24,7 +24,7 @@ load(['CellIDtrack.mat']);
 ```
 
 ### Extracting grid activity in Sargolini data (codes)
-Call getdata_sargolini.m
+Call getdata_sargolini.m. Plot trajectory and spikes. Generate ratemap.
 ```
 [trackpos,trackf,ts] = getdata_sargolini('MEC201410Al1t0.mat',0,1,1); % data 2d
 figure; hold on; axis image; plot(trackpos(:,1),trackpos(:,2),'k'); plot(trackf(:,1),trackf(:,2),'r.');
@@ -37,7 +37,7 @@ ratemap = spkb./tb;     % ratemap
 ratemap(isnan(ratemap)) = 0;    % remove nan for unexplored bins   
 figure; imagesc_env(x0,x0,ratemap); axis image; colorbar; colormap(jet(256)); caxis([0 max(max(ratemap))]);
 ```
-<img src="/figures_readme/traj.png" width="300"> --> <img src="/figures_readme/ratemap.png" width="300">
+<img src="/figures_readme/traj.png" width="300"> <img src="/figures_readme/ratemap.png" width="300">
 
 ### Control (codes_control)
 shuffledfields.m: shuffles grid bumps in perfect simulated grid activity pattern assuming identical and circular bumps
@@ -53,9 +53,9 @@ gsb = shuffledbins(g2d)
 ```
 <img src="/figures_readme/g2d.png" width="300"> --> <img src="/figures_readme/gsb.png" width="300">
 
-shuffledbumps.m: shuffles bumps randomly
+#(shuffledbumps.m: shuffles bumps randomly
 ```
 gsbp = shuffledbins(gdata)
-```
+```)
 
 
