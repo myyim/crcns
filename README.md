@@ -10,7 +10,7 @@ psi = 0.31; % grid orientation
 c = [0,0];  % center related to phase
 [xm,ym] = meshgrid(-r:r,-r:r);
 g2d = gridcell(xm,ym,fpk,lam,psi,c);
-figure; hold on; axis image; colorbar; colormap(jet(256));imagesc(g2d); % plot
+figure; hold on; imagesc_env(-r:r,-r:r,g2d); axis image; colorbar; colormap(jet(256)); % plot
 ```
 <img src="/figures_readme/g2d.png" width="300">
 
@@ -22,11 +22,11 @@ Load the data to workspace
 ```
 datapath = '../Jacob_Sargolini_Data/light_large/data/'; % enter your data path here!
 addpath(datapath);
-load(['CellIDtrack.mat']);
+load(['CellIDarena.mat']); load(['CellIDtrack.mat']);
 ```
 
 ### Plotting grid activity in Sargolini data (codes)
-Call getdata_sargolini.m which works for both arena and track data. Plot trajectory and spikes. Generate ratemap.
+Call getdata_sargolini.m which works for both arena and track data. Plot trajectory and spikes. Generate ratemap. Convolve the ratemap with a Gaussian.
 ```
 [trackpos,trackf,ts] = getdata_sargolini('MEC201410Al1t0.mat',0,1,1); % data 2d
 % file name, tetrode ID, cell ID, load all data using the parameter file 
@@ -42,8 +42,12 @@ spkb = histcounts2(trackf(:,1),trackf(:,2),x0,x0);  % spike count on each bin in
 ratemap = spkb./tb;     % ratemap
 ratemap(isnan(ratemap)) = 0;    % remove nan for unexplored bins   
 figure; imagesc_env(x0,x0,ratemap); axis image; colorbar; colormap(jet(256)); caxis([0 max(max(ratemap))]);
+
+% plot ratemap convolved with a Gaussian
+ratemap_conv = conv2(ratemap,gauss2d(21,21,5),'valid');
+figure; imagesc_env(x0,x0,ratemap_conv); axis image; colorbar; colormap(jet(256)); caxis([0 max(max(ratemap_conv))]);
 ```
-<img src="/figures_readme/traj.png" width="300"> <img src="/figures_readme/ratemap.png" width="300">
+<img src="/figures_readme/traj.png" width="300"> <img src="/figures_readme/ratemap.png" width="300"> <img src="/figures_readme/ratemap_conv2.png" width="300">
 
 ### Extracting circular track activity from grid activity in Sargolini data (codes)
 Call getdata_sargolini.m. Plot trajectory and spikes. Generate ratemap.
@@ -51,6 +55,7 @@ Call getdata_sargolini.m. Plot trajectory and spikes. Generate ratemap.
 % define the circular extraction
 tractw_extract = 15;  % track width
 rad_extract = 60;   % radius
+t = 0:0.01:2*pi+0.01; % for plotting circles
 
 % plot region of extraction
 figure; hold on; axis image; plot(trackpos(:,1),trackpos(:,2),'k'); plot(trackf(:,1),trackf(:,2),'r.');
@@ -63,7 +68,6 @@ plot((rad_extract+15/2)*cos(t),(rad_extract+15/2)*sin(t),'g');  % outer circle
 
 % plot trajectory and spikes
 figure; hold on; axis image; plot(trackpos(:,1),trackpos(:,2),'k'); plot(trackf(:,1),trackf(:,2),'r.');
-t = 0:0.01:2*pi+0.01; 
 plot((rad_extract-15/2)*cos(t),(rad_extract-15/2)*sin(t),'g');  % inner circle
 plot((rad_extract+15/2)*cos(t),(rad_extract+15/2)*sin(t),'g');  % outer circle
 
