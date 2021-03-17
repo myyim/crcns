@@ -12,7 +12,7 @@ c = [0,0];  % center related to phase
 g2d = gridcell(xm,ym,fpk,lam,psi,c);
 figure; hold on; imagesc_env(-r:r,-r:r,g2d); axis image; colorbar; colormap(jet(256)); % plot
 ```
-<img src="/figures_readme/g2d.png" width="300">
+<img src="/figures_readme/g2d.png" width="250">
 
 ### Cell IDs in Sargolini data (sargolini_cellID)
 CellIDarena.mat: file name, tetrode ID and cell ID of 71 cells recorded in arenas  
@@ -47,7 +47,7 @@ figure; imagesc_env(x0,x0,ratemap); axis image; colorbar; colormap(jet(256)); ca
 ratemap_conv = conv2(ratemap,gauss2d(21,21,5),'valid');
 figure; imagesc_env(x0,x0,ratemap_conv); axis image; colorbar; colormap(jet(256)); caxis([0 max(max(ratemap_conv))]);
 ```
-<img src="/figures_readme/traj.png" width="300"> <img src="/figures_readme/ratemap.png" width="300"> <img src="/figures_readme/ratemap_conv2.png" width="300">
+<img src="/figures_readme/traj.png" width="250"> <img src="/figures_readme/ratemap.png" width="250"> <img src="/figures_readme/ratemap_conv.png" width="250">
 
 ### Extracting circular track activity from grid activity in Sargolini data (codes)
 Call getdata_sargolini.m. Plot trajectory and spikes. Generate ratemap.
@@ -82,7 +82,7 @@ figure; hold on; imagesc_env(x0,x0,ratemap); axis image; colorbar; colormap(jet(
 plot((rad_extract-15/2)*cos(t),(rad_extract-15/2)*sin(t),'g');  % inner circle
 plot((rad_extract+15/2)*cos(t),(rad_extract+15/2)*sin(t),'g');  % outer circle
 ```
-<img src="/figures_readme/traj_circle.png" width="300"> <img src="/figures_readme/traj_extract.png" width="300"> <img src="/figures_readme/ratemap_extract.png" width="300">
+<img src="/figures_readme/traj_circle.png" width="250"> <img src="/figures_readme/traj_extract.png" width="250"> <img src="/figures_readme/ratemap_extract.png" width="250">
 
 ### Control (codes_control)
 shuffledfields.m: shuffles grid bumps in perfect simulated grid activity pattern assuming identical and circular bumps
@@ -90,13 +90,13 @@ shuffledfields.m: shuffles grid bumps in perfect simulated grid activity pattern
 ```
 gs = shuffledfields(g2d)
 ```
-<img src="/figures_readme/g2d.png" width="300"> --> <img src="/figures_readme/gs.png" width="300">
+<img src="/figures_readme/g2d.png" width="250"> --> <img src="/figures_readme/gs.png" width="250">
 
 shuffledbins.m: shuffles bins randomly
 ```
 gsb = shuffledbins(g2d)
 ```
-<img src="/figures_readme/g2d.png" width="300"> --> <img src="/figures_readme/gsb.png" width="300">
+<img src="/figures_readme/g2d.png" width="250"> --> <img src="/figures_readme/gsb.png" width="250">
 
 shuffledbumps.m: shuffles bumps randomly
 ```
