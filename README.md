@@ -41,11 +41,11 @@ tb = tb*0.04;     % amount of time on each bin
 spkb = histcounts2(trackf(:,1),trackf(:,2),x0,x0);  % spike count on each bin in 2D
 ratemap = spkb./tb;     % ratemap
 ratemap(isnan(ratemap)) = 0;    % remove nan for unexplored bins   
-figure; imagesc_env(x0,x0,ratemap); axis image; colorbar; colormap(jet(256)); caxis([0 max(max(ratemap))]);
+figure; imagesc_env(x0,x0,ratemap); axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap,[],'all')]);
 
 % plot ratemap convolved with a Gaussian
 ratemap_conv = conv2(ratemap,gauss2d(21,21,5),'valid');
-figure; imagesc_env(x0,x0,ratemap_conv); axis image; colorbar; colormap(jet(256)); caxis([0 max(max(ratemap_conv))]);
+figure; imagesc_env(x0,x0,ratemap_conv); axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap_conv,[],'all')]);
 ```
 <img src="/figures_readme/traj.png" width="250"> <img src="/figures_readme/ratemap.png" width="250"> <img src="/figures_readme/ratemap_conv.png" width="250">
 
@@ -78,7 +78,7 @@ tb = tb*0.04;     % amount of time on each bin
 spkb = histcounts2(trackf(:,1),trackf(:,2),x0,x0);  % spike count on each bin in 2D
 ratemap = spkb./tb;     % ratemap
 ratemap(isnan(ratemap)) = 0;    % remove nan for unexplored bins   
-figure; hold on; imagesc_env(x0,x0,ratemap); axis image; colorbar; colormap(jet(256)); caxis([0 max(max(ratemap))]);
+figure; hold on; imagesc_env(x0,x0,ratemap); axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap,[],'all')]);
 plot((rad_extract-15/2)*cos(t),(rad_extract-15/2)*sin(t),'g');  % inner circle
 plot((rad_extract+15/2)*cos(t),(rad_extract+15/2)*sin(t),'g');  % outer circle
 ```
@@ -103,4 +103,7 @@ shuffledbumps.m: shuffles bumps randomly
 gsbp = shuffledbumps(gdata)
 ```
 
+### Fitting (codes)
+Jacob_Sargolini_traj_overlaid_all.m: prints out all locations in both arena and track in a session as dots and uses the track locations to fit a circle using the method of least squares.
 
+<img src="/figures_readme/overlaid.png" width="250">
