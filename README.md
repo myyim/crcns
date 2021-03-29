@@ -102,6 +102,7 @@ shuffledbumps.m: shuffles bumps randomly
 ```
 gsbp = shuffledbumps(gdata)
 ```
+<img src="/figures_readme/ratemap_conv.png" width="250"> --> <img src="/figures_readme/ratemap_shuffled.png" width="250">
 
 ### Fitting (codes)
 Jacob_Sargolini_traj_overlaid_all.m: prints out all locations in both arena and track in a session as dots and uses the track locations to fit a circle using the method of least squares.
