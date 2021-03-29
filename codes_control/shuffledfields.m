@@ -11,13 +11,14 @@ end
 if nargin <= 2
     seed = randi(100);
 end
+g2d_small = g2d(g2d<=thre);
 g2d(g2d<=thre) = 0;
 rng(seed); 
 [mp,n] = bwlabel(g2d);  % find the islands and the number
 if n < 2
     error('Multiple isolated circular bumps separated by 0s are needed. Consider thresholding your data.');
 end
-mp(mp~=mode(mp(find(mp~=0)),'all')) = 0;    % pick the largest island and we want an intact one
+mp(mp~=mode(mp(mp~=0),'all')) = 0; % pick the largest island and we want an intact one  
 kern = g2d.*(mp~=0);    % a bump
 kern(~any(kern,2),:) = [];  % remove rows with all zeros
 kern(:,~any(kern,1)) = [];  % remove columns with all zeros
@@ -35,5 +36,7 @@ for j = 1:n
     ycoor = ycoor(fclogical);
 end
 gs = conv2(fc,kern,'same'); % convolve the field centers with the field kernel
+randmat = randsample(g2d_small,numel(g2d),'true');  % a random matrix following the statistics of below-threshold values
+gs = gs + reshape(randmat,size(g2d)).*(gs==0); % fill the gap
 figure; hold on; axis image; colorbar; colormap(jet(256));imagesc(gs);
 end
