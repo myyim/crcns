@@ -38,5 +38,5 @@ end
 gs = conv2(fc,kern,'same'); % convolve the field centers with the field kernel
 randmat = randsample(g2d_small,numel(g2d),'true');  % a random matrix following the statistics of below-threshold values
 gs = gs + reshape(randmat,size(g2d)).*(gs==0); % fill the gap
-figure; hold on; axis image; colorbar; colormap(jet(256));imagesc(gs);
+figure; hold on; axis image; colorbar; colormap(jet(256));imagesc(gs');
 end
