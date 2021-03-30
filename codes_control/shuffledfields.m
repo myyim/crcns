@@ -9,7 +9,7 @@ if nargin == 1
     thre = 0.2;
 end
 if nargin <= 2
-    seed = randi(100);
+    seed = 1;
 end
 g2d_small = g2d(g2d<=thre);
 g2d(g2d<=thre) = 0;
