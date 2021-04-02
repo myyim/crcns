@@ -1,4 +1,6 @@
-# Codes and files for CRCNS
+# Mathlab codes and files for CRCNS
+Matlab version: R2020b
+Contact: manyi (dot) yim (a) gmail (dot) com
 
 ### Generating grid activity (codes)
 Call gridcell.m
@@ -41,11 +43,11 @@ tb = tb*0.04;     % amount of time on each bin
 spkb = histcounts2(trackf(:,1),trackf(:,2),x0,x0);  % spike count on each bin in 2D
 ratemap = spkb./tb;     % ratemap
 ratemap(isnan(ratemap)) = 0;    % remove nan for unexplored bins   
-figure; imagesc_env(x0,x0,ratemap); axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap,[],'all')]);
+figure; imagesc(x0,x0,ratemap); axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap,[],'all')]);
 
 % plot ratemap convolved with a Gaussian
 ratemap_conv = conv2(ratemap,gauss2d(21,21,5),'valid');
-figure; imagesc_env(x0,x0,ratemap_conv); axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap_conv,[],'all')]);
+figure; imagesc(x0,x0,ratemap_conv); axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap_conv,[],'all')]);
 ```
 <img src="/figures_readme/traj.png" width="250"> <img src="/figures_readme/ratemap.png" width="250"> <img src="/figures_readme/ratemap_conv.png" width="250">
 
@@ -78,7 +80,7 @@ tb = tb*0.04;     % amount of time on each bin
 spkb = histcounts2(trackf(:,1),trackf(:,2),x0,x0);  % spike count on each bin in 2D
 ratemap = spkb./tb;     % ratemap
 ratemap(isnan(ratemap)) = 0;    % remove nan for unexplored bins   
-figure; hold on; imagesc_env(x0,x0,ratemap); axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap,[],'all')]);
+figure; hold on; imagesc(x0,x0,ratemap); axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap,[],'all')]);
 plot((rad_extract-15/2)*cos(t),(rad_extract-15/2)*sin(t),'g');  % inner circle
 plot((rad_extract+15/2)*cos(t),(rad_extract+15/2)*sin(t),'g');  % outer circle
 ```
@@ -88,7 +90,7 @@ plot((rad_extract+15/2)*cos(t),(rad_extract+15/2)*sin(t),'g');  % outer circle
 shuffledfields.m: shuffles grid bumps in perfect simulated grid activity pattern assuming identical and circular bumps
 (Note that shuffledfields(g2d) thresholds the data g2d by default before shuffling.)
 ```
-gs = shuffledfields(g2d)
+gs = shuffled_identical_circular_fields(g2d)
 ```
 <img src="/figures_readme/g2d.png" width="250"> --> <img src="/figures_readme/gs.png" width="250">
 
@@ -100,7 +102,7 @@ gsb = shuffledbins(g2d)
 
 shuffledbumps.m: shuffles bumps randomly
 ```
-gsbp = shuffledbumps(gdata)
+gsbp = shuffledfields(gdata)
 ```
 <img src="/figures_readme/ratemap_conv.png" width="250"> --> <img src="/figures_readme/ratemap_shuffled.png" width="250">
 
