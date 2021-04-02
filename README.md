@@ -10,7 +10,7 @@ psi = 0.31; % grid orientation
 c = [0,0];  % center related to phase
 [xm,ym] = meshgrid(-rx:rx,-ry:ry);
 g2d = gridcell(xm,ym,fpk,lam,psi,c);
-figure; hold on; imagesc_env(-rx:rx,-ry:ry,g2d); axis image; colorbar; colormap(jet(256)); % plot
+figure; hold on; imagesc(-rx:rx,-ry:ry,g2d); axis image; colorbar; colormap(jet(256)); % plot
 ```
 <img src="/figures_readme/g2d.png" width="250">
 
