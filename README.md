@@ -3,14 +3,14 @@
 ### Generating grid activity (codes)
 Call gridcell.m
 ```
-r = 75;     % the side length is 2r
+rx = 80;  ry = 70;    % the size is 2rx X 2ry
 fpk = 1;    % peak rate
 lam = 37;   % grid period
 psi = 0.31; % grid orientation
 c = [0,0];  % center related to phase
-[xm,ym] = meshgrid(-r:r,-r:r);
+[xm,ym] = meshgrid(-rx:rx,-ry:ry);
 g2d = gridcell(xm,ym,fpk,lam,psi,c);
-figure; hold on; imagesc_env(-r:r,-r:r,g2d); axis image; colorbar; colormap(jet(256)); % plot
+figure; hold on; imagesc_env(-rx:rx,-ry:ry,g2d); axis image; colorbar; colormap(jet(256)); % plot
 ```
 <img src="/figures_readme/g2d.png" width="250">
 
