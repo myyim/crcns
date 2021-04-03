@@ -10,7 +10,7 @@ fpk = 1;    % peak rate
 lam = 37;   % grid period
 psi = 0.31; % grid orientation
 c = [0,0];  % center related to phase
-[xm,ym] = meshgrid(-rx:rx,-ry:ry);
+[ym,xm] = meshgrid(-rx:rx,-ry:ry);
 g2d = gridcell(xm,ym,fpk,lam,psi,c);
 figure; hold on; imagesc(-rx:rx,-ry:ry,g2d); axis image; colorbar; colormap(jet(256)); % plot
 ```
@@ -38,12 +38,13 @@ figure; hold on; axis image; plot(trackpos(:,1),trackpos(:,2),'k'); plot(trackf(
 
 % plot ratemap
 x0 = -100:100;  % enter the length here!
-tb = histcounts2(trackpos(:,1),trackpos(:,2),x0,x0);    % time spent on each bin in 2D
+y0 = -90:90
+tb = histcounts2(trackpos(:,1),trackpos(:,2),x0,y0);    % time spent on each bin in 2D
 tb = tb*0.04;     % amount of time on each bin
-spkb = histcounts2(trackf(:,1),trackf(:,2),x0,x0);  % spike count on each bin in 2D
+spkb = histcounts2(trackf(:,1),trackf(:,2),x0,y0);  % spike count on each bin in 2D
 ratemap = spkb./tb;     % ratemap
 ratemap(isnan(ratemap)) = 0;    % remove nan for unexplored bins   
-figure; imagesc_env(x0,x0,ratemap); axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap,[],'all')]);
+figure; imagesc_env(x0,y0,ratemap); axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap,[],'all')]);
 
 % plot ratemap convolved with a Gaussian
 ratemap_conv = conv2(ratemap,gauss2d(21,21,5),'valid');
