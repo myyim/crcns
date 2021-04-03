@@ -43,11 +43,11 @@ tb = tb*0.04;     % amount of time on each bin
 spkb = histcounts2(trackf(:,1),trackf(:,2),x0,x0);  % spike count on each bin in 2D
 ratemap = spkb./tb;     % ratemap
 ratemap(isnan(ratemap)) = 0;    % remove nan for unexplored bins   
-figure; imagesc(x0,x0,ratemap); axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap,[],'all')]);
+figure; imagesc_env(x0,x0,ratemap); axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap,[],'all')]);
 
 % plot ratemap convolved with a Gaussian
 ratemap_conv = conv2(ratemap,gauss2d(21,21,5),'valid');
-figure; imagesc(x0,x0,ratemap_conv); axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap_conv,[],'all')]);
+figure; imagesc(x0,x0,ratemap_conv)_env; axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap_conv,[],'all')]);
 ```
 <img src="/figures_readme/traj.png" width="250"> <img src="/figures_readme/ratemap.png" width="250"> <img src="/figures_readme/ratemap_conv.png" width="250">
 
@@ -78,9 +78,9 @@ x0 = -100:100;  % enter the length here!
 tb = histcounts2(trackpos(:,1),trackpos(:,2),x0,x0);    % time spent on each bin in 2D
 tb = tb*0.04;     % amount of time on each bin
 spkb = histcounts2(trackf(:,1),trackf(:,2),x0,x0);  % spike count on each bin in 2D
-ratemap = spkb./tb;     % ratemap
-ratemap(isnan(ratemap)) = 0;    % remove nan for unexplored bins   
-figure; hold on; imagesc(x0,x0,ratemap); axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap,[],'all')]);
+ratemap_track = spkb./tb;     % ratemap
+ratemap_track(isnan(ratemap_track)) = 0;    % remove nan for unexplored bins   
+figure; hold on; imagesc_env(x0,x0,ratemap_track); axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap_track,[],'all')]);
 plot((rad_extract-15/2)*cos(t),(rad_extract-15/2)*sin(t),'g');  % inner circle
 plot((rad_extract+15/2)*cos(t),(rad_extract+15/2)*sin(t),'g');  % outer circle
 ```
@@ -102,7 +102,7 @@ gsb = shuffledbins(g2d)
 
 shuffledbumps.m: shuffles bumps randomly
 ```
-gsbp = shuffledfields(gdata)
+gsbp = shuffledfields(ratemap_conv)
 ```
 <img src="/figures_readme/ratemap_conv.png" width="250"> --> <img src="/figures_readme/ratemap_shuffled.png" width="250">
 
