@@ -47,7 +47,7 @@ figure; imagesc_env(x0,x0,ratemap); axis image; colorbar; colormap(jet(256)); ca
 
 % plot ratemap convolved with a Gaussian
 ratemap_conv = conv2(ratemap,gauss2d(21,21,5),'valid');
-figure; imagesc(x0,x0,ratemap_conv)_env; axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap_conv,[],'all')]);
+figure; imagesc_env(x0,x0,ratemap_conv); axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap_conv,[],'all')]);
 ```
 <img src="/figures_readme/traj.png" width="250"> <img src="/figures_readme/ratemap.png" width="250"> <img src="/figures_readme/ratemap_conv.png" width="250">
 
