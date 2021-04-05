@@ -106,6 +106,7 @@ gsbp = shuffledfields(ratemap_conv);
 ```
 <img src="/figures_readme/ratemap_conv.png" width="250"> --> <img src="/figures_readme/ratemap_shuffled.png" width="250">
 
+```
 gsbp = shuffledfields(g2d);
 ```
 <img src="/figures_readme/g2d.png" width="250"> --> <img src="/figures_readme/g2d_shuffled.png" width="250">
