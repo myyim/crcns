@@ -47,7 +47,7 @@ ratemap(isnan(ratemap)) = 0;    % remove nan for unexplored bins
 figure; imagesc_env(ratemap,x0,y0); axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap,[],'all')]);
 
 % plot ratemap convolved with a Gaussian
-ratemap_conv = conv2(ratemap,gauss2d(21,21,5),'valid');
+ratemap_conv = conv2(ratemap,gauss2d(21,21,5),'same');
 figure; imagesc_env(ratemap_conv,x0,y0); axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap_conv,[],'all')]);
 ```
 <img src="/figures_readme/traj.png" width="250"> <img src="/figures_readme/ratemap.png" width="250"> <img src="/figures_readme/ratemap_conv.png" width="250">
@@ -89,9 +89,10 @@ plot((rad_extract-tractw_extract/2)*cos(t),(rad_extract-tractw_extract/2)*sin(t)
 plot((rad_extract+tractw_extract/2)*cos(t),(rad_extract+tractw_extract/2)*sin(t),'g');  % outer circle
 
 % plot ratemap convolved with a Gaussian
-ratemap_conv = conv2(ratemap_track,gauss2d(21,21,5),'valid');
-ratemap_conv((x0.^2+y0.^2<(rad_extract-tractw_extract/2)^2)+(x0.^2+y0.^2>(rad_extract+tractw_extract/2)^2)) = 0;
-figure; imagesc_env(ratemap_conv,x0,y0); axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap_conv,[],'all')]);
+ratemap_track_conv = conv2(ratemap_track,gauss2d(21,21,5),'same');
+[y0m,x0m] = meshgrid(y0,x0);
+ratemap_track_conv((x0m.^2+y0m.^2<(rad_extract-tractw_extract/2)^2)+(x0m.^2+y0m.^2>(rad_extract+tractw_extract/2)^2)) = 0;
+figure; imagesc_env(ratemap_track_conv,x0,y0); axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap_track_conv,[],'all')]);
 ```
 <img src="/figures_readme/ratemap_extract.png" width="250"><img src="/figures_readme/ratemap_extract_conv.png" width="250">
 
