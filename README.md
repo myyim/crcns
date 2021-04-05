@@ -74,6 +74,10 @@ figure; hold on; axis image; plot(trackpos(:,1),trackpos(:,2),'k'); plot(trackf(
 plot((rad_extract-tractw_extract/2)*cos(t),(rad_extract-tractw_extract/2)*sin(t),'g');  % inner circle
 plot((rad_extract+tractw_extract/2)*cos(t),(rad_extract+tractw_extract/2)*sin(t),'g');  % outer circle
 
+```
+<img src="/figures_readme/traj_circle.png" width="250"> <img src="/figures_readme/traj_extract.png" width="250">
+
+```
 % plot ratemap
 tb = histcounts2(trackpos(:,1),trackpos(:,2),x0,y0);    % time spent on each bin in 2D
 tb = tb*0.04;     % amount of time on each bin
@@ -83,9 +87,13 @@ ratemap_track(isnan(ratemap_track)) = 0;    % remove nan for unexplored bins
 figure; hold on; imagesc_env(ratemap_track,x0,y0); axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap_track,[],'all')]);
 plot((rad_extract-tractw_extract/2)*cos(t),(rad_extract-tractw_extract/2)*sin(t),'g');  % inner circle
 plot((rad_extract+tractw_extract/2)*cos(t),(rad_extract+tractw_extract/2)*sin(t),'g');  % outer circle
-```
-<img src="/figures_readme/traj_circle.png" width="250"> <img src="/figures_readme/traj_extract.png" width="250"> <img src="/figures_readme/ratemap_extract.png" width="250">
 
+% plot ratemap convolved with a Gaussian
+ratemap_conv = conv2(ratemap_track,gauss2d(21,21,5),'valid');
+%ratemap_conv(?) = 0;
+figure; imagesc_env(ratemap_conv,x0,y0); axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap_conv,[],'all')]);
+```
+<img src="/figures_readme/ratemap_extract.png" width="250"><img src="/figures_readme/ratemap_extract_conv.png" width="250">
 ### Control (codes_control)
 shuffledfields.m: shuffles grid bumps in perfect simulated grid activity pattern assuming identical and circular bumps
 (Note that shuffledfields(g2d) thresholds the data g2d by default before shuffling.)
