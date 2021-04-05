@@ -17,8 +17,9 @@ if sum(size(g2d) ~= size(mask))
     error('The mask should have the same size as the input matrix.')
 end
 maxiter = 1000;
+mask0 = mask;
 gthre = thre*max(g2d,[],'all');
-g2d_small = g2d(g2d<=gthre);
+g2d_small = g2d((g2d<=gthre).*mask0>0);
 g2d(g2d<=gthre) = 0;
 rng(seed); 
 [mp,n] = bwlabel(g2d);  % find the islands and the number
@@ -49,5 +50,6 @@ end
 % fill the empty space with background statistics
 randmat = randsample(g2d_small,numel(g2d),'true');  % a random matrix following the statistics of below-threshold values
 gs = gs + reshape(randmat,size(g2d)).*(gs==0); % fill the gap
+gs = gs.*mask0;
 figure; hold on; axis image; colorbar; colormap(jet(256));imagesc_env(gs);
 end
