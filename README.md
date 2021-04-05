@@ -66,11 +66,11 @@ plot((rad_extract-tractw_extract/2)*cos(t),(rad_extract-tractw_extract/2)*sin(t)
 plot((rad_extract+tractw_extract/2)*cos(t),(rad_extract+tractw_extract/2)*sin(t),'g');  % outer circle
 
 % load extracted data
-[trackpos,trackf,ts] = getdata_sargolini('MEC201410Al1t0.mat',0,1,4,tractw_extract,rad_extract); % data 2d
+[trackpos_extract,trackf_extract,ts] = getdata_sargolini('MEC201410Al1t0.mat',0,1,4,tractw_extract,rad_extract); % data 2d
 % file name, tetrode ID, cell ID, 4=extract circular track from given data
 
 % plot trajectory and spikes
-figure; hold on; axis image; plot(trackpos(:,1),trackpos(:,2),'k'); plot(trackf(:,1),trackf(:,2),'r.');
+figure; hold on; axis image; plot(trackpos_extract(:,1),trackpos_extract(:,2),'k'); plot(trackf_extract(:,1),trackf_extract(:,2),'r.');
 plot((rad_extract-tractw_extract/2)*cos(t),(rad_extract-tractw_extract/2)*sin(t),'g');  % inner circle
 plot((rad_extract+tractw_extract/2)*cos(t),(rad_extract+tractw_extract/2)*sin(t),'g');  % outer circle
 
@@ -79,9 +79,9 @@ plot((rad_extract+tractw_extract/2)*cos(t),(rad_extract+tractw_extract/2)*sin(t)
 
 ```
 % plot ratemap
-tb = histcounts2(trackpos(:,1),trackpos(:,2),x0,y0);    % time spent on each bin in 2D
+tb = histcounts2(trackpos_extract(:,1),trackpos_extract(:,2),x0,y0);    % time spent on each bin in 2D
 tb = tb*0.04;     % amount of time on each bin
-spkb = histcounts2(trackf(:,1),trackf(:,2),x0,y0);  % spike count on each bin in 2D
+spkb = histcounts2(trackf_extract(:,1),trackf_extract(:,2),x0,y0);  % spike count on each bin in 2D
 ratemap_track = spkb./tb;     % ratemap
 ratemap_track(isnan(ratemap_track)) = 0;    % remove nan for unexplored bins   
 figure; hold on; imagesc_env(ratemap_track,x0,y0); axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap_track,[],'all')]);
@@ -90,10 +90,11 @@ plot((rad_extract+tractw_extract/2)*cos(t),(rad_extract+tractw_extract/2)*sin(t)
 
 % plot ratemap convolved with a Gaussian
 ratemap_conv = conv2(ratemap_track,gauss2d(21,21,5),'valid');
-%ratemap_conv(?) = 0;
+ratemap_conv((x0.^2+y0.^2<(rad_extract-tractw_extract/2)^2)+(x0.^2+y0.^2>(rad_extract+tractw_extract/2)^2)) = 0;
 figure; imagesc_env(ratemap_conv,x0,y0); axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap_conv,[],'all')]);
 ```
 <img src="/figures_readme/ratemap_extract.png" width="250"><img src="/figures_readme/ratemap_extract_conv.png" width="250">
+
 ### Control (codes_control)
 shuffledfields.m: shuffles grid bumps in perfect simulated grid activity pattern assuming identical and circular bumps
 (Note that shuffledfields(g2d) thresholds the data g2d by default before shuffling.)
