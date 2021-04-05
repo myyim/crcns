@@ -56,23 +56,23 @@ figure; imagesc_env(ratemap_conv,x0,y0); axis image; colorbar; colormap(jet(256)
 Call getdata_sargolini.m. Plot trajectory and spikes. Generate ratemap.
 ```
 % define the circular extraction
-tractw_extract = 15;  % track width
-rad_extract = 60;   % radius
+rad_extract = 75-15/2;   % mid-radius of the track
+tractw_extract = 20;  % track width of the extraction; can be larger than actual width because animals' head can be outside
 t = 0:0.01:2*pi+0.01; % for plotting circles
 
 % plot region of extraction
 figure; hold on; axis image; plot(trackpos(:,1),trackpos(:,2),'k'); plot(trackf(:,1),trackf(:,2),'r.');
-plot((rad_extract-15/2)*cos(t),(rad_extract-15/2)*sin(t),'g');  % inner circle
-plot((rad_extract+15/2)*cos(t),(rad_extract+15/2)*sin(t),'g');  % outer circle
+plot((rad_extract-tractw_extract/2)*cos(t),(rad_extract-tractw_extract/2)*sin(t),'g');  % inner circle
+plot((rad_extract+tractw_extract/2)*cos(t),(rad_extract+tractw_extract/2)*sin(t),'g');  % outer circle
 
-& load extracted data
+% load extracted data
 [trackpos,trackf,ts] = getdata_sargolini('MEC201410Al1t0.mat',0,1,4,tractw_extract,rad_extract); % data 2d
 % file name, tetrode ID, cell ID, 4=extract circular track from given data
 
 % plot trajectory and spikes
 figure; hold on; axis image; plot(trackpos(:,1),trackpos(:,2),'k'); plot(trackf(:,1),trackf(:,2),'r.');
-plot((rad_extract-15/2)*cos(t),(rad_extract-15/2)*sin(t),'g');  % inner circle
-plot((rad_extract+15/2)*cos(t),(rad_extract+15/2)*sin(t),'g');  % outer circle
+plot((rad_extract-tractw_extract/2)*cos(t),(rad_extract-tractw_extract/2)*sin(t),'g');  % inner circle
+plot((rad_extract+tractw_extract/2)*cos(t),(rad_extract+tractw_extract/2)*sin(t),'g');  % outer circle
 
 % plot ratemap
 tb = histcounts2(trackpos(:,1),trackpos(:,2),x0,y0);    % time spent on each bin in 2D
@@ -81,8 +81,8 @@ spkb = histcounts2(trackf(:,1),trackf(:,2),x0,y0);  % spike count on each bin in
 ratemap_track = spkb./tb;     % ratemap
 ratemap_track(isnan(ratemap_track)) = 0;    % remove nan for unexplored bins   
 figure; hold on; imagesc_env(ratemap_track,x0,y0); axis image; colorbar; colormap(jet(256)); caxis([0 max(ratemap_track,[],'all')]);
-plot((rad_extract-15/2)*cos(t),(rad_extract-15/2)*sin(t),'g');  % inner circle
-plot((rad_extract+15/2)*cos(t),(rad_extract+15/2)*sin(t),'g');  % outer circle
+plot((rad_extract-tractw_extract/2)*cos(t),(rad_extract-tractw_extract/2)*sin(t),'g');  % inner circle
+plot((rad_extract+tractw_extract/2)*cos(t),(rad_extract+tractw_extract/2)*sin(t),'g');  % outer circle
 ```
 <img src="/figures_readme/traj_circle.png" width="250"> <img src="/figures_readme/traj_extract.png" width="250"> <img src="/figures_readme/ratemap_extract.png" width="250">
 
