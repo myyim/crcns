@@ -123,6 +123,13 @@ gsbp = shuffledfields(g2d);
 ```
 <img src="/figures_readme/g2d.png" width="250"> --> <img src="/figures_readme/g2d_shuffled.png" width="250">
 
+```
+[y0m,x0m] = meshgrid(y0,x0);
+mask = (x0m.^2+y0m.^2<(rad_extract-tractw_extract/2)^2)+(x0m.^2+y0m.^2>(rad_extract+tractw_extract/2)^2)==0;
+gsbp = shuffledfields(ratemap_track_conv,0.2,1,mask);
+```
+<img src="/figures_readme/ratemap_extract_conv.png" width="250"> --> <img src="/figures_readme/ratemap_extract_conv_shuffled.png" width="250">
+
 ### Fitting (codes)
 Jacob_Sargolini_traj_overlaid_all.m: prints out all locations in both arena and track in a session as dots and uses the track locations to fit a circle using the method of least squares.
 
