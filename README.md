@@ -123,6 +123,7 @@ gsbp = shuffledfields(g2d);
 ```
 <img src="/figures_readme/g2d.png" width="250"> --> <img src="/figures_readme/g2d_shuffled.png" width="250">
 
+gsbp = shuffledfields(ratemap_track_conv,0.2,1,mask): shuffles bumps randomly inside a restricted region defined in mask
 ```
 [y0m,x0m] = meshgrid(y0,x0);
 mask = (x0m.^2+y0m.^2<(rad_extract-tractw_extract/2)^2)+(x0m.^2+y0m.^2>(rad_extract+tractw_extract/2)^2)==0;
