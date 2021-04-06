@@ -99,7 +99,7 @@ figure; imagesc_env(ratemap_track_conv,x0,y0); axis image; colorbar; colormap(je
 <img src="/figures_readme/ratemap_extract.png" width="250"><img src="/figures_readme/ratemap_extract_conv.png" width="250">
 
 ### Control (codes_control)
-shuffledfields.m: shuffles grid bumps in perfect simulated grid activity pattern assuming identical and circular bumps
+shuffled_identical_circular_fields.m: shuffles grid bumps in perfect simulated grid activity pattern assuming identical and circular bumps
 (Note that shuffledfields(g2d) thresholds the data g2d by default before shuffling.)
 ```
 gs = shuffled_identical_circular_fields(g2d);
@@ -115,15 +115,23 @@ gsb = shuffledbins(g2d);
 shuffledbumps.m: shuffles bumps randomly
 ```
 gsbp = shuffledfields(ratemap_conv);
+
+% Check the statistics by plotting the histogram of the firing rate
+nbins = 20; % number of bins
+h = histogram(ratemap_conv,nbins);
+h = histogram(gsbp,nbins);
 ```
 <img src="/figures_readme/ratemap_conv.png" width="250"> --> <img src="/figures_readme/ratemap_shuffled.png" width="250">
 
+<img src="/figures_readme/ratemap_conv.png" width="250"> --> <img src="/figures_readme/ratemap_shuffled.png" width="250">
+
+For simulated dense grid cell activity, shuffled_identical_circular_fields.m is usually preferred.
 ```
 gsbp = shuffledfields(g2d);
 ```
 <img src="/figures_readme/g2d.png" width="250"> --> <img src="/figures_readme/g2d_shuffled.png" width="250">
 
-gsbp = shuffledfields(ratemap_track_conv,0.2,1,mask): shuffles bumps randomly inside a restricted region defined in mask
+shuffledfields.m: shuffles bumps randomly inside a restricted region defined in mask
 ```
 [y0m,x0m] = meshgrid(y0,x0);
 mask = (x0m.^2+y0m.^2<(rad_extract-tractw_extract/2)^2)+(x0m.^2+y0m.^2>(rad_extract+tractw_extract/2)^2)==0;
