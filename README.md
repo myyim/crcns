@@ -123,7 +123,7 @@ h = histogram(gsbp,nbins);
 ```
 <img src="/figures_readme/ratemap_conv.png" width="250"> --> <img src="/figures_readme/ratemap_shuffled.png" width="250">
 
-<img src="/figures_readme/ratemap_conv.png" width="250"> --> <img src="/figures_readme/ratemap_shuffled.png" width="250">
+<img src="/figures_readme/hist_ratemap_conv.png" width="250"> --> <img src="/figures_readme/hist_ratemap_shuffled.png" width="250">
 
 For simulated dense grid cell activity, shuffled_identical_circular_fields.m is usually preferred.
 ```
@@ -136,8 +136,15 @@ shuffledfields.m: shuffles bumps randomly inside a restricted region defined in 
 [y0m,x0m] = meshgrid(y0,x0);
 mask = (x0m.^2+y0m.^2<(rad_extract-tractw_extract/2)^2)+(x0m.^2+y0m.^2>(rad_extract+tractw_extract/2)^2)==0;
 gsbp = shuffledfields(ratemap_track_conv,0.2,1,mask);
+
+% Check the statistics by plotting the histogram of the firing rate
+nbins = 20; % number of bins
+h = histogram(ratemap_track_conv(mask==1),nbins);
+h = histogram(gsbp(mask==1),nbins);
 ```
 <img src="/figures_readme/ratemap_extract_conv.png" width="250"> --> <img src="/figures_readme/ratemap_extract_conv_shuffled.png" width="250">
+
+<img src="/figures_readme/hist_ratemap_extract_conv.png" width="250"> --> <img src="/figures_readme/hist_ratemap_extract_conv_shuffled.png" width="250">
 
 ### Fitting (codes)
 Jacob_Sargolini_traj_overlaid_all.m: prints out all locations in both arena and track in a session as dots and uses the track locations to fit a circle using the method of least squares.
