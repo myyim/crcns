@@ -1,32 +1,14 @@
-function spts = shuffledclusters(pts,epsilon,minpts,k,seed,mask)
-% gs = shuffledclusters() shuffles clusters.
+function spts = shuffledclusters(X,epsilon,minpts,seed,mask)
+%  = shuffledclusters() shuffles clusters.
 % Optional seed returns different realizations.
 % Optional mask defines the boundary for shuffled fields.
 % Image processing toolbox is required.
-if nargin == 1
-    thre = 0.2;
-end
-if nargin <= 2
-    seed = 1;
-end
-if nargin <= 3
-    mask = ones(size(g2d));
-end
-if sum(size(g2d) ~= size(mask))
-    error('The mask should have the same size as the input matrix.')
-end
+
+idx = dbscan(X,epsilon,minpts)
 maxiter = 1000;
 mask0 = mask;
-gthre = thre*max(g2d,[],'all');
-g2d_small = g2d((g2d<=gthre).*mask0>0);
-g2d(g2d<=gthre) = 0;
 rng(seed); 
-[mp,n] = bwlabel(g2d);  % find the islands and the number
-if n < 2
-    error('Multiple isolated circular bumps separated by 0s are needed. Consider thresholding your data.');
-end
-gs = zeros(size(g2d));
-[ycoor,xcoor] = meshgrid(1:size(g2d,2),1:size(g2d,1)); % coordinates of the grid. Note g2d is y by x. 
+
 for j = 1:n
     xtemp = (mp==j).*xcoor; xmax = max(xtemp,[],'all'); % find the smallest rectangle that contains the island
     xtemp(xtemp==0)=1e10; xmin = min(xtemp,[],'all');
