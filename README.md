@@ -146,6 +146,9 @@ h = histogram(gsbp(mask==1),nbins);
 
 <img src="/figures_readme/hist_ratemap_extract_conv.png" width="250"> --> <img src="/figures_readme/hist_ratemap_extract_conv_shuffled.png" width="250">
 
+### Temporary figures
+<img src="/figures_readme/testdbscan.png" width="900">
+
 ### Fitting (codes)
 Jacob_Sargolini_traj_overlaid_all.m: prints out all locations in both arena and track in a session as dots and uses the track locations to fit a circle using the method of least squares.
 
