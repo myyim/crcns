@@ -9,7 +9,7 @@ if nargin == 1
     thre = 0.2;
 end
 if nargin <= 2
-    seed = 1;
+    seed = 3;
 end
 g2d_small = g2d(g2d<=thre);
 g2d(g2d<=thre) = 0;
@@ -23,10 +23,10 @@ kern = g2d.*(mp~=0);    % a bump
 kern(~any(kern,2),:) = [];  % remove rows with all zeros
 kern(:,~any(kern,1)) = [];  % remove columns with all zeros
 rkern = size(kern,1);
-[xcoor,ycoor] = meshgrid(1:size(g2d,1),1:size(g2d,2)); % coordinates of the grid
+[xcoor,ycoor] = meshgrid(1:size(g2d,1)+rkern,1:size(g2d,2)+rkern); % coordinates of the grid with additional margins
+fc = zeros(size(xcoor'));  % matrix for field centers
 xcoor = xcoor(:);   % flatten it
 ycoor = ycoor(:);
-fc = zeros(size(g2d));  % matrix for field centers
 for j = 1:n
     c = datasample([xcoor,ycoor],1);    % draw the center of the bump but potential center coordinates
     fc(c(1),c(2)) = 1;  % field centers
@@ -36,6 +36,8 @@ for j = 1:n
     ycoor = ycoor(fclogical);
 end
 gs = conv2(fc,kern,'same'); % convolve the field centers with the field kernel
+gs = gs(floor(rkern/2):size(g2d,1)+floor(rkern/2)-1,:);   % crop the matrix
+gs = gs(:,floor(rkern/2):size(g2d,2)+floor(rkern/2)-1);
 randmat = randsample(g2d_small,numel(g2d),'true');  % a random matrix following the statistics of below-threshold values
 gs = gs + reshape(randmat,size(g2d)).*(gs==0); % fill the gap
 figure; hold on; axis image; colorbar; colormap(jet(256));imagesc_env(gs);
