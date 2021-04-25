@@ -146,6 +146,24 @@ h = histogram(gsbp(mask==1),nbins);
 
 <img src="/figures_readme/hist_ratemap_extract_conv.png" width="250"> --> <img src="/figures_readme/hist_ratemap_extract_conv_shuffled.png" width="250">
 
+### Clustering
+DBSCAN
+```
+[idx_d,C0] = clusterdbscan(trackf);
+```
+<img src="/figures_readme/clusterdbscan.png" width="500">
+
+K-means
+```
+[idx,C] = clusterkmeans(trackf(idx_d>0,:),C0);
+idx_k = ?;
+```
+<img src="/figures_readme/clusterdkmeans.png" width="500">
+
+Shuffling
+```
+trackfs = shuffledclusters(trackf,idx_d,mask);
+```
 ### Temporary figures
 <img src="/figures_readme/testdbscan.png" width="900">
 
