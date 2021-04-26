@@ -149,14 +149,13 @@ h = histogram(gsbp(mask==1),nbins);
 ### Clustering
 DBSCAN
 ```
-[idx_d,C0] = clusterdbscan(trackf);
+[idx_d,C_d] = clusterdbscan(trackf);
 ```
 <img src="/figures_readme/clusterdbscan.png" width="500">
 
 K-means
 ```
-[idx,C] = clusterkmeans(trackf(idx_d>0,:),C0);
-idx_k = ?;
+[idx_k,C_k] = clusterkmeans(trackf,idx_d);
 ```
 <img src="/figures_readme/clusterdkmeans.png" width="500">
 
