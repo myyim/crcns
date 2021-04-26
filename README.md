@@ -151,13 +151,13 @@ DBSCAN
 ```
 [idx_d,C_d] = clusterdbscan(trackf);
 ```
-<img src="/figures_readme/clusterdbscan.png" width="500">
+<img src="/figures_readme/clusterdbscan.png" width="750">
 
 K-means
 ```
 [idx_k,C_k] = clusterkmeans(trackf,idx_d);
 ```
-<img src="/figures_readme/clusterdkmeans.png" width="500">
+<img src="/figures_readme/clusterdkmeans.png" width="750">
 
 Shuffling
 ```
