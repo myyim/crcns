@@ -102,18 +102,21 @@ figure; imagesc_env(ratemap_track_conv,x0,y0); axis image; colorbar; colormap(je
 shuffled_identical_circular_fields.m: shuffles grid bumps in perfect simulated grid activity pattern assuming identical and circular bumps
 (Note that shuffledfields(g2d) thresholds the data g2d by default before shuffling.)
 ```
+% shuffles grid bumps in perfect simulated grid activity pattern assuming identical and circular bumps
 gs = shuffled_identical_circular_fields(g2d);
 ```
 <img src="/figures_readme/g2d.png" width="250"> --> <img src="/figures_readme/gs.png" width="250">
 
 shuffledbins.m: shuffles bins randomly
 ```
+% shuffles bins randomly
 gsb = shuffledbins(g2d);
 ```
 <img src="/figures_readme/g2d.png" width="250"> --> <img src="/figures_readme/gsb.png" width="250">
 
 shuffledbumps.m: shuffles bumps randomly
 ```
+% shuffles bumps randomly
 gsbp = shuffledfields(ratemap_conv);
 
 % Check the statistics by plotting the histogram of the firing rate
@@ -133,6 +136,7 @@ gsbp = shuffledfields(g2d);
 
 shuffledfields.m: shuffles bumps randomly inside a restricted region defined in mask
 ```
+% shuffles bumps randomly inside a restricted region defined in mask
 [y0m,x0m] = meshgrid(y0,x0);
 mask = (x0m.^2+y0m.^2<(rad_extract-tractw_extract/2)^2)+(x0m.^2+y0m.^2>(rad_extract+tractw_extract/2)^2)==0;
 gsbp = shuffledfields(ratemap_track_conv,0.2,1,mask);
@@ -149,20 +153,29 @@ h = histogram(gsbp(mask==1),nbins);
 ### Clustering
 DBSCAN
 ```
+% cluster using DBSCAN
 [idx_d,C_d] = clusterdbscan(trackf);
 ```
 <img src="/figures_readme/clusterdbscan.png" width="750">
 
 K-means
 ```
+% cluster using k-means
 [idx_k,C_k] = clusterkmeans(trackf,idx_d);
 ```
 <img src="/figures_readme/clusterdkmeans.png" width="750">
 
 Shuffling
 ```
-trackfs = shuffledclusters(trackf,idx_d,mask);
+% shuffle cluster
+trackfs = shuffledclusters(trackf,idx_k);
 ```
+
+```
+% shuffle cluster inside a restricted region defined in mask
+trackfs = shuffledclusters(trackf,idx_k,1,mask);
+```
+
 ### Temporary figures
 <img src="/figures_readme/testdbscan.png" width="900">
 
