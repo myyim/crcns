@@ -38,7 +38,7 @@ for j = 1:n
         if count > maxiter
             error('A field does not fit in the shuffled environment. Consider using a larger environment.')
         end
-        select = (mask==1).*(xcoor<max(xcoor,[],'all')-xmax+xmin).*(ycoor<max(ycoor,[],'all')-ymax+ymin);
+        select = (mask==1).*(xcoor<max(xcoor,[],'all')-xmax+xmin+1).*(ycoor<max(ycoor,[],'all')-ymax+ymin+1);
         newcorner = datasample([xcoor(select==1) ycoor(select==1)],1); % coordinates of the lower corner to place the field
         proj = zeros(size(g2d));
         proj(newcorner(1):newcorner(1)+xmax-xmin,newcorner(2):newcorner(2)+ymax-ymin) = g2d(xmin:xmax,ymin:ymax);

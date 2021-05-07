@@ -1,54 +1,47 @@
-function spts = shuffledclusters(pts,epsilon,minpts,k,seed,mask)
-% gs = shuffledclusters() shuffles clusters.
+function spts = shuffledclusters(X,idx,seed,mask)
+% spts = shuffledclusters(X,idx,seed,mask) shuffles clusters and returns
+% the shuffled data points spts.
 % Optional seed returns different realizations.
 % Optional mask defines the boundary for shuffled fields.
-% Image processing toolbox is required.
-if nargin == 1
-    thre = 0.2;
+% By default the environment centers at the origin.
+dmax = ceil(max(abs(X),[],'all'));
+if nargin < 4  
+    mask = ones(2*dmax+1,2*dmax+1); % minimum environment containing all data
 end
-if nargin <= 2
+if nargin < 3
     seed = 1;
 end
-if nargin <= 3
-    mask = ones(size(g2d));
-end
-if sum(size(g2d) ~= size(mask))
-    error('The mask should have the same size as the input matrix.')
+if 2*max(abs(X(:,1)))+1 > size(mask,1) || 2*max(abs(X(:,2)))+1 > size(mask,2)
+    error('Use a mask of larger dimension!');
 end
 maxiter = 1000;
-mask0 = mask;
-gthre = thre*max(g2d,[],'all');
-g2d_small = g2d((g2d<=gthre).*mask0>0);
-g2d(g2d<=gthre) = 0;
 rng(seed); 
-[mp,n] = bwlabel(g2d);  % find the islands and the number
-if n < 2
-    error('Multiple isolated circular bumps separated by 0s are needed. Consider thresholding your data.');
-end
-gs = zeros(size(g2d));
-[ycoor,xcoor] = meshgrid(1:size(g2d,2),1:size(g2d,1)); % coordinates of the grid. Note g2d is y by x. 
-for j = 1:n
-    xtemp = (mp==j).*xcoor; xmax = max(xtemp,[],'all'); % find the smallest rectangle that contains the island
+xm = floor(size(mask,1)/2); % the mask matrix is rectangular
+ym = floor(size(mask,2)/2);
+[ycoor,xcoor] = meshgrid(-ym:ym,-xm:xm); % coordinates of the grid. Note g2d is y by x
+figure; hold on; axis image;
+spts = [];
+for j = 1:max(idx)
+    loc = hist3(X(idx==j,:),'Edges',{-xm:xm,-ym:ym});
+    xtemp = (loc>0).*xcoor; xmax = max(xtemp,[],'all'); % find the smallest rectangle that contains the cluster
     xtemp(xtemp==0)=1e10; xmin = min(xtemp,[],'all');
-    ytemp = (mp==j).*ycoor; ymax = max(ytemp,[],'all');
-    ytemp(ytemp==0)=1e10; ymin = min(ytemp,[],'all');
+    ytemp = (loc>0).*ycoor; ymax = max(ytemp,[],'all');
+    ytemp(ytemp==0)=1e10; ymin = min(ytemp,[],'all');    
     count = 0;
-    while count==0 || sum(sum(mp==j))~=sum(sum((proj>0).*mask)) % restrict the new field using the mask
+    while count==0 || sum(loc,'All')~=sum(proj.*mask,'All') % ensure all data points in the allowed region
         if count > maxiter
             error('A field does not fit in the shuffled environment. Consider using a larger environment.')
-        end
-        select = (mask==1).*(xcoor<max(xcoor,[],'all')-xmax+xmin).*(ycoor<max(ycoor,[],'all')-ymax+ymin);
-        newcorner = datasample([xcoor(select==1) ycoor(select==1)],1); % coordinates of the lower corner to place the field
-        proj = zeros(size(g2d));
-        proj(newcorner(1):newcorner(1)+xmax-xmin,newcorner(2):newcorner(2)+ymax-ymin) = g2d(xmin:xmax,ymin:ymax);
+        end         
+        shift = [-xmin-xm+(2*xm-xmax+xmin)*rand(1),-ymin-ym+(2*ym-ymax+ymin)*rand(1)];        
+        proj = hist3(X(idx==j,:)+shift,'Edges',{-xm:xm,-ym:ym});
         count = count + 1;
     end
-    mask(proj>0) = 0; % update the mask
-    gs = gs + proj; % assign the field to the new location    
+    mask(proj>0) = 0; % restrict overlapping clusters
+    plot(X(idx==j,1)+shift(1),X(idx==j,2)+shift(2),'.');
+    spts = [spts; X(idx==j,:)+shift]; % assign the field to the new location    
 end
 % fill the empty space with background statistics
-randmat = randsample(g2d_small,numel(g2d),'true');  % a random matrix following the statistics of below-threshold values
-gs = gs + reshape(randmat,size(g2d)).*(gs==0); % fill the gap
-gs = gs.*mask0;
-figure; hold on; axis image; colorbar; colormap(jet(256));imagesc_env(gs);
+noise = [-xm+2*xm*rand(sum(idx==-1),1) -ym+2*ym*rand(sum(idx==-1),1)];
+spts = [spts; noise];
+plot(noise(:,1),noise(:,2)); xlim([-dmax,dmax]); ylim([-dmax,dmax]);
 end
