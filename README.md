@@ -188,7 +188,7 @@ Shuffling
 % shuffle clusters
 trackfs = shuffledclusters(trackf,idx_k);
 ```
-
+<img src="/figures_readme/kmeans.png" width="250"> --> <img src="/figures_readme/kmeansshuffled.png" width="250">
 ```
 % shuffle cluster inside a restricted region defined in mask
 dmax = ceil(max(abs(trackf),[],'all'));
@@ -197,6 +197,7 @@ mask = zeros(2*dmax+1,2*dmax+1);
 mask(xcoor.^2+ycoor.^2<dmax^2) = 1;
 trackfs = shuffledclusters(trackf,idx_k,1,mask);
 ```
+<img src="/figures_readme/kmeans.png" width="250"> --> <img src="/figures_readme/kmeansshuffledmask.png" width="250">
 
 ### Temporary figures
 <img src="/figures_readme/testdbscan.png" width="900">
