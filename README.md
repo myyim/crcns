@@ -121,7 +121,9 @@ gsbp = shuffledfields(ratemap_conv);
 
 % Check the statistics by plotting the histogram of the firing rate
 nbins = 20; % number of bins
+figure;
 h = histogram(ratemap_conv,nbins);
+figure;
 h = histogram(gsbp,nbins);
 ```
 <img src="/figures_readme/ratemap_conv.png" width="250"> --> <img src="/figures_readme/ratemap_shuffled.png" width="250">
@@ -143,7 +145,9 @@ gsbp = shuffledfields(ratemap_track_conv,0.2,1,mask);
 
 % Check the statistics by plotting the histogram of the firing rate
 nbins = 20; % number of bins
+figure;
 h = histogram(ratemap_track_conv(mask==1),nbins);
+figure;
 h = histogram(gsbp(mask==1),nbins);
 ```
 <img src="/figures_readme/ratemap_extract_conv.png" width="250"> --> <img src="/figures_readme/ratemap_extract_conv_shuffled.png" width="250">
@@ -158,21 +162,39 @@ DBSCAN
 ```
 <img src="/figures_readme/clusterdbscan.png" width="750">
 
-K-means
+K-means after DBSCAN
 ```
 % cluster using k-means
 [idx_k,C_k] = clusterkmeans(trackf,idx_d);
 ```
 <img src="/figures_readme/clusterdkmeans.png" width="750">
 
+K-means
+```
+seed = 0;
+rng(seed);
+idx_k = kmeans(trackf,7);
+C_k = zeros(max(idx_k),2);
+figure; hold on; axis image;
+for j = unique(idx_k(idx_k~=-1))'
+    C_k(j,:) = mean(trackf(idx_k==j,:));
+    plot(trackf(idx_k==j,1),trackf(idx_k==j,2),'.');
+    plot(C_k(j,1),C_k(j,2),'kx','LineWidth',2);
+end
+```
+
 Shuffling
 ```
-% shuffle cluster
+% shuffle clusters
 trackfs = shuffledclusters(trackf,idx_k);
 ```
 
 ```
 % shuffle cluster inside a restricted region defined in mask
+dmax = ceil(max(abs(trackf),[],'all'));
+mask = zeros(2*dmax+1,2*dmax+1);
+[ycoor,xcoor] = meshgrid(-dmax:dmax,-dmax:dmax);
+mask(xcoor.^2+ycoor.^2<dmax^2) = 1;
 trackfs = shuffledclusters(trackf,idx_k,1,mask);
 ```
 
