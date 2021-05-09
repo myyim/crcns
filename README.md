@@ -199,6 +199,12 @@ trackfs = shuffledclusters(trackf,idx_k,1,mask);
 ```
 <img src="/figures_readme/kmeans.png" width="250"> --> <img src="/figures_readme/shuffledkmeansmask.png" width="250">
 
+### Gridness score
+Smoothed spatial rate map
+Autocorrelation of the rate map
+Identification of the 6 nearest peaks around the center
+Gridness score =  minimum correlation of the peaks - maximum correlation in between peaks
+
 ### Temporary figures
 <img src="/figures_readme/testdbscan.png" width="250">
 
