@@ -201,8 +201,11 @@ trackfs = shuffledclusters(trackf,idx_k,1,mask);
 
 ### Gridness score
 Smoothed spatial rate map
+
 Autocorrelation of the rate map
+
 Identification of the 6 nearest peaks around the center
+
 Gridness score =  minimum correlation of the peaks - maximum correlation in between peaks
 
 ### Temporary figures
