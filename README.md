@@ -200,13 +200,15 @@ trackfs = shuffledclusters(trackf,idx_k,1,mask);
 <img src="/figures_readme/kmeans.png" width="250"> --> <img src="/figures_readme/shuffledkmeansmask.png" width="250">
 
 ### Gridness score
-Smoothed spatial rate map
+Generate a smoothed spatial rate map
 
-Autocorrelation of the rate map
+Calculate the autocorrelation of the rate map
 
-Identification of the 6 nearest peaks around the center
+Extract a ring from the autocorrelation that encases the six peaks closest to the center peak
 
-Gridness score =  minimum correlation of the peaks - maximum correlation in between peaks
+Compute the rotational autocorrelation
+
+The gridness score is the minimum of the (Pearson) correlations obtained at rotational offset 60° and 120° minus the maximum obtained at 30°, 90°, and 150°
 
 ### Temporary figures
 <img src="/figures_readme/testdbscan.png" width="250">
