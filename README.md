@@ -227,7 +227,7 @@ Data: 2D and track extracted from 2D
 
 Simulation: 2D and track extracted from 2D
 
-<img src="/figures_readme/gridscore_simulated37.png" width="500"><img src="/figures_readme/gridscore_ratemap_extract37.png" width="500">
+<img src="/figures_readme/gridscore_ratemap37.png" width="500"><img src="/figures_readme/gridscore_ratemap_extract37.png" width="500">
 
 ### Temporary figures
 <img src="/figures_readme/testdbscan.png" width="250">
