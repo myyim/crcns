@@ -219,15 +219,15 @@ trackfs = shuffledclusters(trackf,idx_k,1,mask);
 
 Data: 2D and track extracted from 2D
 
-<img src="/figures_readme/gridness8.png" width="250"><img src="/figures_readme/gridness_extract8.png" width="250">
+<img src="/figures_readme/gridscore8.png" width="250"><img src="/figures_readme/gridscore_extract8.png" width="250">
 
 Data: 2D and track extracted from 2D
 
-<img src="/figures_readme/gridness3.png" width="250"><img src="/figures_readme/gridness_extract3.png" width="250">
+<img src="/figures_readme/gridscore3.png" width="250"><img src="/figures_readme/gridscore_extract3.png" width="250">
 
 Simulation: 2D and track extracted from 2D
 
-<img src="/figures_readme/gridness_simulated37.png" width="250"><img src="/figures_readme/gridness_ratemap_extract37.png" width="250">
+<img src="/figures_readme/gridscore_simulated37.png" width="250"><img src="/figures_readme/gridscore_ratemap_extract37.png" width="250">
 
 ### Temporary figures
 <img src="/figures_readme/testdbscan.png" width="250">
