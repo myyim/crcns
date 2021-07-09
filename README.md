@@ -203,19 +203,28 @@ trackfs = shuffledclusters(trackf,idx_k,1,mask);
 <img src="/figures_readme/kmeans.png" width="250"> --> <img src="/figures_readme/shuffledkmeansmask.png" width="250">
 
 ### Gridness score
-Generate a smoothed spatial rate map
+1. Generate a smoothed spatial rate map
 
-Calculate the autocorrelation of the rate map
+2. Calculate the autocorrelation of the rate map
 
-Compute the mean activity along the radial coordinates of the autocorrelation
+3. Compute the mean activity along the radial coordinates of the autocorrelation
 
-Pick the first local minimum r and maximum R, which are approximately the radius of the field and the grid spacing, respectively
+4. Pick the first local minimum r and maximum R, which are approximately the radius of the field and the grid spacing, respectively
 
-Extract the ring centered at R with width 2r
+5. Extract the ring centered at R with width 2r
 
-Compute the rotational autocorrelation and extract the same ring based on coordinates
+6. Compute the rotational autocorrelation and extract the same ring based on coordinates
 
-The gridness score is the minimum of the (Pearson) correlations obtained at rotational offset 60° and 120° minus the maximum obtained at 30°, 90°, and 150°
+7. The gridness score is the minimum of the (Pearson) correlations obtained at rotational offset 60° and 120° minus the maximum obtained at 30°, 90°, and 150°
+
+Data: 2D and track extracted from 2D
+<img src="/figures_readme/gridness8.png" width="250"><img src="/figures_readme/gridness_extract8.png" width="250">
+
+Data: 2D and track extracted from 2D
+<img src="/figures_readme/gridness3.png" width="250"><img src="/figures_readme/gridness_extract3.png" width="250">
+
+Simulation: 2D and track extracted from 2D
+<img src="/figures_readme/gridness_simulated37.png" width="250"><img src="/figures_readme/gridness_ratemap_extract37.png" width="250">
 
 ### Temporary figures
 <img src="/figures_readme/testdbscan.png" width="250">
