@@ -218,12 +218,15 @@ trackfs = shuffledclusters(trackf,idx_k,1,mask);
 7. The gridness score is the minimum of the (Pearson) correlations obtained at rotational offset 60° and 120° minus the maximum obtained at 30°, 90°, and 150°
 
 Data: 2D and track extracted from 2D
+
 <img src="/figures_readme/gridness8.png" width="250"><img src="/figures_readme/gridness_extract8.png" width="250">
 
 Data: 2D and track extracted from 2D
+
 <img src="/figures_readme/gridness3.png" width="250"><img src="/figures_readme/gridness_extract3.png" width="250">
 
 Simulation: 2D and track extracted from 2D
+
 <img src="/figures_readme/gridness_simulated37.png" width="250"><img src="/figures_readme/gridness_ratemap_extract37.png" width="250">
 
 ### Temporary figures
