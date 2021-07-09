@@ -207,9 +207,13 @@ Generate a smoothed spatial rate map
 
 Calculate the autocorrelation of the rate map
 
-Extract a ring from the autocorrelation that encases the six peaks closest to the center peak
+Compute the mean activity along the radial coordinates of the autocorrelation
 
-Compute the rotational autocorrelation
+Pick the first local minimum r and maximum R, which are approximately the radius of the field and the grid spacing, respectively
+
+Extract the ring centered at R with width 2r
+
+Compute the rotational autocorrelation and extract the same ring based on coordinates
 
 The gridness score is the minimum of the (Pearson) correlations obtained at rotational offset 60° and 120° minus the maximum obtained at 30°, 90°, and 150°
 
