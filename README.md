@@ -209,11 +209,11 @@ trackfs = shuffledclusters(trackf,idx_k,1,mask);
 
 3. Compute the mean activity along the radial coordinates of the autocorrelation
 
-4. Pick the first local minimum r and maximum R, which are approximately the radius of the field and the grid spacing, respectively
+4. Find the first local minimum r and maximum R, which are approximately the radius of the field and the grid spacing, respectively
 
 5. Extract the ring centered at R with width 2r
 
-6. Compute the rotational autocorrelation and extract the same ring based on coordinates
+6. Compute the rotational autocorrelation and extract the same ring
 
 7. The gridness score is the minimum of the (Pearson) correlations obtained at rotational offset 60° and 120° minus the maximum obtained at 30°, 90°, and 150°
 
