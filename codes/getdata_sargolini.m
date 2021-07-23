@@ -9,9 +9,10 @@ function [trackpos,trackf,ts]=getdata_sargolini(fname,tID,cID,coord,trackw,radiu
 % fname: file name
 % tID: tetrode ID
 % cID: cell ID
-% coord: 0: untouched/ 1: cartesian with param/ 2: cartesian autocenter
-% (default)/ 3: linearized / 4: track extraction
+% coord: 0: untouched/ 1: cartesian with param (default)/ 2: cartesian autocenter
+% / 3: linearized / 4: track extraction
 % trackw: width of 'track' for the spikes to be considered; 0 if all spikes count
+% radius_coord4: for coord = 4 only; center radius of the extracted track 
 
 % OUTPUT:
 % trackpos: scaled track position data
@@ -20,7 +21,7 @@ function [trackpos,trackf,ts]=getdata_sargolini(fname,tID,cID,coord,trackw,radiu
 
 %% default
 if nargin <=3
-    coord = 2;
+    coord = 1;
 end
 if nargin <=4
     trackw = 0; % all spikes considered
@@ -28,16 +29,15 @@ end
 
 %% get data
 load(fname);
-trackpos = PosMtx(:,2:3); %;Pos(:,4)];  Both Tetrodes
-fT = TTMtx(logical((TTMtx(:,2)==tID).*(TTMtx(:,3)==cID)),:);  % Timestamps of firing data 
-idx = find(ismembertol(PosMtx(:,1),fT(:,1),1e-5)); % looks for position data
-trackf = PosMtx(idx,2:3);
 ts = PosMtx(:,1);
+trackpos = PosMtx(:,2:3); %;Pos(:,4)];  Both Tetrodes
+fT = TTMtx(logical((TTMtx(:,2)==tID).*(TTMtx(:,3)==cID)),1);  % Timestamps of firing data 
+trackf = [interp1(ts,trackpos(:,1),fT) interp1(ts,trackpos(:,2),fT)];
 
+run('Jacob_Sargolini_Data_param.m');
 if coord > 0
     if coord == 1 || coord == 3 || coord == 4
         % parameters
-        run('Jacob_Sargolini_Data_param.m');
         an = fname(1:4);
         switch an
             case {'1RS_','2BS_'}
@@ -66,9 +66,9 @@ if coord > 0
         if coord == 4
             rad = radius_coord4;
         end
-        [theta,rho] = cart2pol(trackpos(:,1),trackpos(:,2));
+        [~,rho] = cart2pol(trackpos(:,1),trackpos(:,2));
         trackpos = trackpos(abs(rho-rad)<trackw/2,:);
-        [theta,rho] = cart2pol(trackf(:,1),trackf(:,2));
+        [~,rho] = cart2pol(trackf(:,1),trackf(:,2));
         trackf = trackf(abs(rho-rad)<trackw/2,:);
     end
     % linearized
