@@ -31,10 +31,11 @@ end
 load(fname);
 ts = PosMtx(:,1);
 trackpos = PosMtx(:,2:3); %;Pos(:,4)];  Both Tetrodes
-fT = TTMtx(logical((TTMtx(:,2)==tID).*(TTMtx(:,3)==cID)),1);  % Timestamps of firing data 
-trackf = [interp1(ts,trackpos(:,1),fT) interp1(ts,trackpos(:,2),fT)];
+fT = TTMtx(logical((TTMtx(:,2)==tID).*(TTMtx(:,3)==cID)),1);  % Timestamps of firing data with tetrode and cell ID
+fT = fT(logical((fT>=ts(1)).*(fT<=ts(end))));   % discard spikes before and after the session
+trackf = [interp1(ts,trackpos(:,1),fT,'nearest') interp1(ts,trackpos(:,2),fT,'nearest')]; % spike location set to be the animal location at the nearest time
 
-run('Jacob_Sargolini_Data_param.m');
+run('Jacob_Sargolini_Data_param.m'); % contains all paramters + fitting
 if coord > 0
     if coord == 1 || coord == 3 || coord == 4
         % parameters
