@@ -233,6 +233,8 @@ Simulation: 2D and track extracted from 2D
 <img src="/figures_readme/testdbscan.png" width="250">
 
 ### Fitting (codes)
-Jacob_Sargolini_traj_overlaid_all.m: prints out all locations in both arena and track in a session as dots and uses the track locations to fit a circle using the method of least squares.
+Jacob_Sargolini_traj.m: prints out all locations in both arena and track as dots, and the fitted circle
+
+fitcirculartrack.m: fits the track locations with a circle
 
 <img src="/figures_readme/overlaid.png" width="250">
