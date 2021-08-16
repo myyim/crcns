@@ -1,4 +1,8 @@
 function gau = gauss2d(Nx,Ny,sig,X,Y)
+% gau = gauss2d(Nx,Ny,sig,X,Y) returns a 2D gaussian profile (Nx-by-Ny)
+% with standard deviation sig and its peak at (X,Y). It peaks at the center
+% with sig = 5 if not specified.
+
 if nargin <= 2
     sig = 5;
 end
